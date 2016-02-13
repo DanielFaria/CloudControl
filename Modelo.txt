@@ -1,0 +1,18 @@
+Provedor:
+    
+    Nome
+    email
+    site
+
+Sistema Operacional
+	Nome
+	64 Bits
+
+Pacote  de Serviço 
+   Provedor
+   Sistema Operacional
+
+   Quantidade de CPU
+   Memoria
+   Quantidade de Disco
+   Preço por Hora
