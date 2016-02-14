@@ -5,6 +5,8 @@ from api import views
 urlpatterns = [
     url(r'^pacotes/$', views.PacoteList.as_view()),
     url(r'^pacotes/(?P<pk>[0-9]+)/$', views.PacoteDetail.as_view()),
+    url(r'^provedores/$', views.ProvedorList.as_view()),
+    url(r'^provedores/(?P<pk>[0-9]+)/$', views.ProvedorDetail.as_view()),
    
 ]
 

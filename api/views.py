@@ -19,4 +19,15 @@ class PacoteList(generics.ListCreateAPIView):
 class PacoteDetail(generics.ListCreateAPIView):
     queryset = Pacote.objects.all()
     serializer_class = PacoteSerializer
+
+
+
+class ProvedorList(generics.ListCreateAPIView):
+    queryset = Provedor.objects.all()
+    serializer_class = ProvedorSerializer 
     
+
+
+class ProvedorDetail(generics.ListCreateAPIView):
+    queryset = Provedor.objects.all()
+    serializer_class = ProvedorSerializer
