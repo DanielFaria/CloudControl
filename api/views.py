@@ -31,3 +31,15 @@ class ProvedorList(generics.ListCreateAPIView):
 class ProvedorDetail(generics.ListCreateAPIView):
     queryset = Provedor.objects.all()
     serializer_class = ProvedorSerializer
+
+
+class SistemaOperacionalList(generics.ListCreateAPIView):
+    queryset = SistemaOperacional.objects.all()
+    serializer_class = SistemaOperacionalSerializer
+    
+
+
+class SistemaOperacionalDetail(generics.ListCreateAPIView):
+    serializer_class = SistemaOperacionalSerializer
+    queryset = Provedor.objects.all()
+    

@@ -36,8 +36,8 @@ class Pacote(models.Model):
     valorHora     = models.DecimalField(max_digits=12, decimal_places=2,  default=0.0)
 
     #Chaves  estrangeiras 
-    sistemaOperacional = models.ForeignKey(SistemaOperacional, on_delete=models.CASCADE)
-    provedor           = models.ForeignKey(Provedor, on_delete=models.CASCADE)
+    sistemaOperacional = models.ForeignKey(SistemaOperacional,related_name='pacotes', on_delete=models.CASCADE)
+    provedor           = models.ForeignKey(Provedor,related_name='pacotes', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ('created',)
