@@ -15,6 +15,14 @@ function AppListCtrl($scope, $http, $templateCache) {
     $scope.data = "Request failed";
   });
 
+  $scope.selecionaForm  =  function(idForm) {
+      console.info("O Id do form é" +idForm);
+      $scope.form = idForm;
+  }  
+
+
+
+
 
 
 
@@ -71,7 +79,7 @@ function AppListCtrl($scope, $http, $templateCache) {
         $scope.valorTotal = 0;
   }
 
-
+  $scope.form=1;
 
   $scope.produtosSelecionados = [];
   $scope.total = 0;
