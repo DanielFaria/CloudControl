@@ -1,0 +1,13 @@
+body{
+    padding: 20px;
+}
+ 
+label{
+    width: 100px;
+    display: inline-block;
+}
+ 
+a{
+    margin-bottom: 30px;
+    display: inline-block;
+}
