@@ -29,6 +29,7 @@
 
     <script  src="{% static "js/angular.min.js"  %}"></script>
     <script  src="{% static "js/AppPrincipal.js" %}"></script>
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,11 +37,10 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
 <body  ng-controller="AppListCtrl" >
-    <span ng-init="list()"/>
+    <span ng-init="getSistemas()"/>
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -74,15 +74,6 @@
     <!-- Page Content -->
     <div class="container">
 
-         
-
-
-
-
-
-
-
-
     <ul>
     
    
@@ -92,10 +83,11 @@
                 <div class="list-group"  ng-show="!isCheckout" >
                      <a href="#" ng-click="selecionaForm(1)" class="list-group-item">Pesquisar Pacotes</a>
                     <a href="#"  ng-click="selecionaForm(2)" class="list-group-item"> Cadastrar Provedor</a>
-                    <a href="#"  ng-click="selecionaForm(3)" class="list-group-item"> Cadastar Sistema Operacional</a>
+                    <a href="#"  ng-click="selecionaForm(3);getSistemas()" class="list-group-item"> Cadastar Sistema Operacional</a>
                     <a href="#"  ng-click="selecionaForm(4)" class="list-group-item"> Cadastar Pacote</a>
                 </div>
-                <div class="list-group">
+                   <!-- 
+                    <div class="list-group">
                         <h4><a href="#">Carrinho</a>
                         </h4>
                           <div   ng-repeat="produto in produtosSelecionados">
@@ -106,6 +98,7 @@
                         <p>Valor Total:    {{valorTotal}}</p>
                         <a class="btn btn-primary"  ng-click="checkout()" href="#">Checkout</a>
                     </div>
+                    -->
             </div>
 
             <div class="col-md-9">
@@ -124,17 +117,23 @@
                             <label for="name" class="control-label"> Disco (GB)</label>
                             <input type="text" value='' class="form-control" id="name" >
                         </div>
-                         <div class="form-group col-xs-2 col-md-4 col-lg-3">
+                         <div class="form-group col-xs-2 col-md-4 col-lg-4">
                             <label for="selectSO" class="control-label">SO</label>
-                            <select class="form-control" id="selectSO">
-                                <option>Ubuntu 14.01</option>
-                                <option>SUSE -13</option>
-                                <option>Red HAT</option>
-                            </select>
+                           
+                             <select class="form-control"   ng-model="sistema"  >
+                               <option value="0"></option>
+                              {% verbatim %}
+                                  <option ng-repeat="sistema in sistemas" value="{{sistema.pk}}">{{sistema.nome}}</option>
+                              {% endverbatim %}   
+                             </select>
                         </div>
+                         
+                        
 
                         <br>
                         <button  class="btn btn-primary">Pesquisar</button>
+
+                        
                     </form>
                   </div>   
                 <!--FIM DIV PARA PESQUISA DE  PACOTES -->
@@ -239,13 +238,18 @@
                         <div class="form-group">
                           <label for="selectSO" class="control-label col-xs-2">SO:</label>
                           <div class="col-xs-10">
-                             <select class="form-control" id="selectSO">
-                                <option> </option>
-                                <option>Ubuntu 14.01</option>
-                                <option>SUSE -13</option>
-                                <option>Red HAT</option>
-                            </select>
+                              <select class="form-control"   ng-model="sistema"  >
+                               <option value="0"></option>
+                              {% verbatim %}
+                                  <option ng-repeat="sistema in sistemas" value="{{sistema.pk}}">{{sistema.nome}}</option>
+                              {% endverbatim %}   
+                             </select>
                           </div>
+                          
+                          
+
+
+
                        </div>
                       
 

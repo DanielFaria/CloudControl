@@ -7,14 +7,14 @@ class ProvedorSerializer(serializers.HyperlinkedModelSerializer):
     pacotes = serializers.HyperlinkedRelatedField(queryset=Pacote.objects.all(), view_name='pacote-detail', many=True)
     class Meta:
         model = Provedor
-        fields = ( 'nome','email', 'site','pacotes')
+        fields = ( 'pk','nome','email', 'site','pacotes')
 
 
 class SistemaOperacionalSerializer(serializers.HyperlinkedModelSerializer):
-    pacotes = serializers.HyperlinkedRelatedField(queryset=Pacote.objects.all(), view_name='pacote-detail', many=True)
+    #pacotes = serializers.HyperlinkedRelatedField(queryset=Pacote.objects.all(), view_name='pacote-detail', many=True)
     class Meta:
         model = SistemaOperacional
-        fields = ( 'nome', 'pacotes')
+        fields = ( 'pk','nome', )
 
 class PacoteSerializer(serializers.HyperlinkedModelSerializer):
     sistemaOperacional = SistemaOperacionalSerializer()
@@ -22,5 +22,5 @@ class PacoteSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Pacote
-        fields = ( 'nome', 'quantidadeCpu', 'memoria','tamanhoDisco','valorHora','sistemaOperacional', 'provedor' ) 
+        fields = ( 'pk','nome', 'quantidadeCpu', 'memoria','tamanhoDisco','valorHora','sistemaOperacional', 'provedor' ) 
                   
