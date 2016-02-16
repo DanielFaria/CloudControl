@@ -4,41 +4,37 @@ from django.contrib.auth.models import User
 
 
 class ProvedorSerializer(serializers.HyperlinkedModelSerializer):
-    pacotes = serializers.HyperlinkedRelatedField(queryset=Pacote.objects.all(), view_name='pacote-detail', many=True)
+    #pacotes = serializers.HyperlinkedRelatedField(queryset=Pacote.objects.all(), view_name='pacote-detail', many=True)
     
 
     class Meta:
         model = Provedor
         queryset = Provedor.objects.all()
-        fields = ( 'pk','nome','email', 'site','pacotes',)
+        fields = ( 'pk','nome','email', 'site',)
     
-    def get_related_field(self, model_field):
-            # Handles initializing the `subcategories` field
-            return ProvedorSerializer()
-
+   
 class SistemaOperacionalSerializer(serializers.HyperlinkedModelSerializer):
-    pacotes = serializers.HyperlinkedRelatedField(queryset=Pacote.objects.all(), view_name='pacote-detail', many=True)
+    #pacotes = serializers.HyperlinkedRelatedField(queryset=Pacote.objects.all(), view_name='pacote-detail', many=True)
     
     class Meta:
         model = SistemaOperacional
         queryset = SistemaOperacional.objects.all()
-        fields = ( 'pk','nome','pacotes', )
+        fields = ( 'pk','nome', )
 
 class PacoteSerializer(serializers.HyperlinkedModelSerializer):
-    sistemaOperacional =  serializers.PrimaryKeyRelatedField(queryset=SistemaOperacional.objects.all())
-    provedor           =  serializers.PrimaryKeyRelatedField(queryset=Provedor.objects.all())
+    
+    sistemaOperacional_id =  serializers.PrimaryKeyRelatedField(queryset=SistemaOperacional.objects.all(),
+        source="sistemaOperacional", write_only=True)
+    sistemaOperacional    =  SistemaOperacionalSerializer(read_only=True)
+
+    provedor_id = serializers.PrimaryKeyRelatedField(queryset=Provedor.objects.all()
+        ,source="provedor", write_only=True)
+
+    provedor = ProvedorSerializer(read_only=True) 
 
     class Meta:
         model = Pacote
-        fields = ( 'pk','nome', 'quantidadeCpu', 'memoria','tamanhoDisco','valorHora','sistemaOperacional', 'provedor' ) 
+        fields = ( 'pk','nome', 'quantidadeCpu', 'memoria','tamanhoDisco','valorHora','sistemaOperacional','sistemaOperacional_id', 
+            'provedor','provedor_id' ) 
 
-    def create(self, validated_data):
-        #user = validated_data.get('user')
-
-        pacote = Pacote.objects.create(**validated_data)
-
-        
-        pacote.save()
-
-        return pacote
-                  
+    

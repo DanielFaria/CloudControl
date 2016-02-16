@@ -45,6 +45,8 @@ class Pacote(models.Model):
     sistemaOperacional = models.ForeignKey(SistemaOperacional,related_name='pacotes', on_delete=models.CASCADE)
     provedor           = models.ForeignKey(Provedor,related_name='pacotes', on_delete=models.CASCADE)
 
+     
+
     class Meta:
         ordering = ('created',)
     
