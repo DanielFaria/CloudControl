@@ -40,7 +40,7 @@
 </head>
 
 <body  ng-controller="AppListCtrl" >
-    <span ng-init="getSistemas()"/>
+    <span ng-init="getSistemas();getProvedores()"/>
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -83,7 +83,7 @@
                 <div class="list-group"  ng-show="!isCheckout" >
                      <a href="#" ng-click="selecionaForm(1)" class="list-group-item">Pesquisar Pacotes</a>
                     <a href="#"  ng-click="selecionaForm(2)" class="list-group-item"> Cadastrar Provedor</a>
-                    <a href="#"  ng-click="selecionaForm(3);getSistemas()" class="list-group-item"> Cadastar Sistema Operacional</a>
+                    <a href="#"  ng-click="selecionaForm(3);" class="list-group-item"> Cadastar Sistema Operacional</a>
                     <a href="#"  ng-click="selecionaForm(4)" class="list-group-item"> Cadastar Pacote</a>
                 </div>
                    <!-- 
@@ -195,73 +195,68 @@
                 <!-- FIM DIV PARA  CADASTRO DE SO-->  
                  <!-- DIV PARA  CADASTRO DE PACOTES-->  
                  <div id="cadastroPacotes" ng-show="form == 4">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" ng-submit="atualizaOuSalvaPacotes()">
                        <div class="span10">
                             <h2>Cadastro de Pacotes de Serviços:</h2>
                        </div>
                         
                        <div class="form-group">
-                          <label for="inputEmail" class="control-label col-xs-2">Nome:</label>
+                          <label for="nomePacote" class="control-label col-xs-2">Nome:</label>
                           <div class="col-xs-10">
-                             <input type="text" class="form-control" id="inputEmail" >
+                             <input type="text" class="form-control"  ng-model="data.nomePacote" id="nomePacote" >
                           </div>
                        </div>
                        <div class="form-group">
-                          <label for="inputPassword" class="control-label col-xs-2">Quantidade CPU:</label>
+                          <label for="inputQtCPU" class="control-label col-xs-2">Quantidade CPU:</label>
                           <div class="col-xs-10">
-                             <input type="text" class="form-control" id="inputPassword" >
+                             <input type="text" class="form-control"  ng-model="data.quantidadeCpu" id="inputQtCPU" >
                           </div>
                        </div>
                        
                        <div class="form-group">
-                          <label for="inputPassword" class="control-label col-xs-2">Tamanho Discos(GB):</label>
+                          <label for="inputDisco" class="control-label col-xs-2">Tamanho Discos(GB):</label>
                           <div class="col-xs-10">
-                             <input type="password" class="form-control" id="inputPassword" >
+                             <input type="text" class="form-control" ng-model="data.quantidadeDisco" id="inputDisco" >
                           </div>
                        </div>
                         
                        <div class="form-group">
-                          <label for="inputPassword" class="control-label col-xs-2">Quantidade Memória(GB):</label>
+                          <label for="inputQtMemoria" class="control-label col-xs-2">Quantidade Memória(GB):</label>
                           <div class="col-xs-10">
-                             <input type="text" class="form-control" id="inputPassword" >
+                             <input type="text" class="form-control" ng-model="data.quantidadeMemoria" id="inputQtMemoria" >
                           </div>
                        </div> 
 
 
                         <div class="form-group">
-                          <label for="inputPassword" class="control-label col-xs-2">Valor Hora:</label>
+                          <label for="inputValorHora" class="control-label col-xs-2">Valor Hora:</label>
                           <div class="col-xs-10">
-                             <input type="text" class="form-control" id="inputPassword" >
+                             <input type="text" class="form-control" ng-model="data.valorHora" id="inputValorHora" >
                           </div>
                        </div>
                       
                         <div class="form-group">
                           <label for="selectSO" class="control-label col-xs-2">SO:</label>
                           <div class="col-xs-10">
-                              <select class="form-control"   ng-model="sistema"  >
+                              <select class="form-control"  ng-model="data.so"  id="selectSO" ng-model="sistema"  >
                                <option value="0"></option>
                               {% verbatim %}
                                   <option ng-repeat="sistema in sistemas" value="{{sistema.pk}}">{{sistema.nome}}</option>
                               {% endverbatim %}   
                              </select>
                           </div>
-                          
-                          
-
-
-
                        </div>
                       
 
                       <div class="form-group">
-                          <label for="selectSO" class="control-label col-xs-2">Provedor:</label>
+                          <label for="selectPro" class="control-label col-xs-2">Provedor:</label>
                           <div class="col-xs-10">
-                             <select class="form-control" id="selectSO">
-                                <option> </option>
-                                <option>Azure</option>
-                                <option>AmazonWS</option>
-                                <option>Heroku</option>
-                            </select>
+                              <select class="form-control" id="selectPro" ng-model="data.provedor"    ng-model="provedor"  >
+                               <option value="0"></option>
+                              {% verbatim %}
+                                  <option ng-repeat="provedor in provedores" value="{{provedor.pk}}">{{provedor.nome}}</option>
+                              {% endverbatim %}   
+                             </select>
                           </div>
                        </div>
 

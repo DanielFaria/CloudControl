@@ -28,10 +28,29 @@ function AppListCtrl($scope, $http, $templateCache) {
         }) 
     }
 
-
-
-
-
+  $scope.getProvedores = function() {
+        $scope.provedores =  [];
+        $http({method: 'GET', url: 'provedores'}).
+            success(function(data, status, headers, config) {
+                $scope.provedores = data;
+        }) 
+    }
+ $scope.atualizaOuSalvaPacotes = function() {
+        $http({method: 'POST', url: 'pacotes',
+           data: { nome: $scope.data['nomePacote'],
+                   quantidadeCpu : $scope.data['quantidadeCpu'],
+                   memoria : $scope.data['quantidadeMemoria'],
+                   tamanhoDisco :$scope.data['quantidadeDisco'],
+                   valorHora: $scope.data['valorHora'],
+                   sistemaOperacional : $scope.data['so'],
+                   provedor           : $scope.data['provedor']
+          }}).success(function(data, status, headers, config) {
+            $scope.data['success'] = true;
+        }).
+        error(function(data, status, headers, config) {
+            $scope.data['success'] = false;
+        }); 
+  }
 
     
 

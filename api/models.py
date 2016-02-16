@@ -10,12 +10,18 @@ class Provedor(models.Model):
     email = models.CharField(max_length=100, blank=True, default='')
     site  = models.CharField(max_length=100, blank=False)
 
+    def __str__(self):
+        return '%s' % (self.nome)
+
     class Meta:
         ordering = ('created',)
 
 class SistemaOperacional(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     nome  = models.CharField(max_length=100, blank=False)
+
+    def __str__(self):
+        return '%s' % (self.nome)
     class Meta:
         ordering = ('created',)	
 
