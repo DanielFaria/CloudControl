@@ -107,21 +107,21 @@
                  <div id="pesquisaPacotes" ng-show="form == 1">
                     <form >
                         <div class="form-group col-xs-2 col-md-4 col-lg-2">
-                            <label for="name" class="control-label">Nº CPU</label>
-                            <input type="text" value='' class="form-control" id="name" >
+                            <label for="cpu" class="control-label">Nº CPU</label>
+                            <input type="text" value=''  ng-model="data.numCpu" class="form-control" id="name" >
                         </div>
                         <div class="form-group col-xs-2 col-md-4 col-lg-2">
                             <label for="name" class="control-label">Memória</label>
-                            <input type="text" value='' class="form-control" id="name" >
+                            <input type="text" value='' ng-model="data.memoria" class="form-control" id="name" >
                         </div>
                         <div class="form-group col-xs-2 col-md-4 col-lg-2">
                             <label for="name" class="control-label"> Disco (GB)</label>
-                            <input type="text" value='' class="form-control" id="name" >
+                            <input type="text" value='' ng-model="data.disco" class="form-control" id="name" >
                         </div>
                          <div class="form-group col-xs-2 col-md-4 col-lg-4">
                             <label for="selectSO" class="control-label">SO</label>
                            
-                             <select class="form-control"   ng-model="sistema"  >
+                             <select class="form-control"   ng-model="data.sistema"  >
                                <option value="0"></option>
                               
                                   <option ng-repeat="sistema in sistemas" value="{$sistema.pk$}">{$sistema.nome$}</option> 
@@ -131,10 +131,35 @@
                         
 
                         <br>
-                        <button  class="btn btn-primary">Pesquisar</button>
-
-                        
+                        <button  class="btn btn-primary" ng-click="pesquisaPacotes()">Pesquisar</button>
                     </form>
+                      <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+                        <thead>
+                        <tr>
+                          <th st-sort="firstName">nome</th>
+                          <th st-sort="lastName">CPU</th>
+                          <th st-sort="birthDate">Memória</th>
+                          <th st-sort="balance">Valor</th>
+                        </tr>
+                        <tr>
+                          <th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in pacotes">
+                          <td>{$row.nome$}</td>
+                          <td>{$row.quantidadeCpu$}</td>
+                          <td>{$row.memoria$}</td>
+                          <td>{$row.tamanhoDisco$}</td>
+                          <td>
+                          <button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
+                            <i class="glyphicon glyphicon-remove-circle">
+                            </i>
+                          </button>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
                   </div>   
                 <!--FIM DIV PARA PESQUISA DE  PACOTES -->
                 <!-- DIV PARA  CADASTRO DE FORNECEDORES-->  

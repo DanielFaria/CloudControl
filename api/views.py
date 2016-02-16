@@ -14,6 +14,29 @@ class PacoteList(generics.ListCreateAPIView):
     queryset = Pacote.objects.all()
     serializer_class = PacoteSerializer
     
+    def get_queryset(self):
+        #TODO - Considerar depois refatorar para DJANGO-FILTERS
+
+        queryset = Pacote.objects.all()
+
+        cpu     = self.request.query_params.get('cpu', None)
+        memoria = self.request.query_params.get('memoria', None)
+        sistema = self.request.query_params.get('sistema', None)
+        disco   = self.request.query_params.get('tamanhoDisco', None)
+
+        if sistema is not None:
+            queryset = queryset.filter(sistemaOperacional_id=sistema)
+        
+        if disco is not None:
+            queryset = queryset.filter(tamanhoDisco=disco)
+
+        if cpu is not None:
+            queryset = queryset.filter(quantidadeCpu=cpu)
+
+        if memoria is not None:
+            queryset = queryset.filter(memoria=memoria)
+
+        return queryset
 
 
 class PacoteDetail(generics.ListCreateAPIView):

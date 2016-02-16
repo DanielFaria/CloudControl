@@ -12,6 +12,8 @@ profileEditApp.config(['$httpProvider', '$interpolateProvider',
  
 profileEditApp.controller('cloudControlCtrl', function ($scope, $http) {
     
+   
+
 
     $scope.selecionaForm  =  function(idForm) {
       $scope.form = idForm;
@@ -73,7 +75,53 @@ profileEditApp.controller('cloudControlCtrl', function ($scope, $http) {
     }); 
   }
 
-    
+  $scope.pesquisaPacotes  =  function() {
+      var  urlPesquisa = '';
+      var  parametroAdicionado = false;
+      if ($scope.data.numCpu != null && $scope.data.numCpu != "") {
+         urlPesquisa = "cpu="+$scope.data.numCpu;
+         parametroAdicionado = true;
+      }
+      
+      if ($scope.data.memoria != null && $scope.data.memoria != "") {
+         if(parametroAdicionado){
+            urlPesquisa += "&memoria="+$scope.data.memoria;
+         }else{
+            urlPesquisa += "memoria="+$scope.data.memoria;
+         }
+         parametroAdicionado = true;
+      }
+      
+      if ($scope.data.disco != null && $scope.data.disco!= "") {
+         if(parametroAdicionado){
+             urlPesquisa += "&tamanhoDisco="+$scope.data.disco;
+         }else{
+           urlPesquisa += "tamanhoDisco="+$scope.data.disco;
+         } 
+         parametroAdicionado = true;   
+      }
+      if ($scope.data.sistema != null && $scope.data.sistema!= "") {
+         if(parametroAdicionado){
+           urlPesquisa += "&sistema="+$scope.data.sistema;
+         }else{
+            urlPesquisa += "sistema="+$scope.data.sistema;
+         }
+
+         
+      }
+      alert("URL:" +urlPesquisa);
+
+
+      $scope.sistemas =  [];
+        $http({method: 'GET', url: 'pacotes/?'+urlPesquisa}).
+            success(function(data, status, headers, config) {
+                $scope.pacotes = data;
+        }) 
+    } 
+
+
+
+
 
   $scope.form=1;
 
