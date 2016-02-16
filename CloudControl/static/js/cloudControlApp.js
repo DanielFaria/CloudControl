@@ -78,6 +78,15 @@ profileEditApp.controller('cloudControlCtrl', function ($scope, $http) {
   $scope.pesquisaPacotes  =  function() {
       var  urlPesquisa = '';
       var  parametroAdicionado = false;
+      if(!$scope.data) {
+        $http({method: 'GET', url: 'pacotes'}).
+            success(function(data, status, headers, config) {
+                $scope.pacotes = data;
+        }) 
+        return;
+      }
+
+
       if ($scope.data.numCpu != null && $scope.data.numCpu != "") {
          urlPesquisa = "cpu="+$scope.data.numCpu;
          parametroAdicionado = true;
@@ -109,10 +118,8 @@ profileEditApp.controller('cloudControlCtrl', function ($scope, $http) {
 
          
       }
-      alert("URL:" +urlPesquisa);
+     
 
-
-      $scope.sistemas =  [];
         $http({method: 'GET', url: 'pacotes/?'+urlPesquisa}).
             success(function(data, status, headers, config) {
                 $scope.pacotes = data;

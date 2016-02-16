@@ -32,6 +32,8 @@
     
     <script  src="{% static "js/cloudControlApp.js" %}"></script> 
 
+    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -82,7 +84,7 @@
 
             <div class="col-md-3">
                 <div class="list-group"  ng-show="!isCheckout" >
-                     <a href="#" ng-click="selecionaForm(1)" class="list-group-item">Pesquisar Pacotes</a>
+                     <a href="#" ng-click="selecionaForm(1);getSistemas()" class="list-group-item">Pesquisar Pacotes</a>
                     <a href="#"  ng-click="selecionaForm(2)" class="list-group-item"> Cadastrar Provedor</a>
                     <a href="#"  ng-click="selecionaForm(3);" class="list-group-item"> Cadastar Sistema Operacional</a>
                     <a href="#"  ng-click="selecionaForm(4);getProvedores();getSistemas()" class="list-group-item"> Cadastar Pacote</a>
@@ -108,23 +110,22 @@
                     <form >
                         <div class="form-group col-xs-2 col-md-4 col-lg-2">
                             <label for="cpu" class="control-label">Nº CPU</label>
-                            <input type="text" value=''  ng-model="data.numCpu" class="form-control" id="name" >
+                            <input type="number" value=''  ng-model="data.numCpu" class="form-control" id="name" >
                         </div>
                         <div class="form-group col-xs-2 col-md-4 col-lg-2">
                             <label for="name" class="control-label">Memória</label>
-                            <input type="text" value='' ng-model="data.memoria" class="form-control" id="name" >
+                            <input type="number" value='' ng-model="data.memoria" class="form-control" id="name" >
                         </div>
                         <div class="form-group col-xs-2 col-md-4 col-lg-2">
                             <label for="name" class="control-label"> Disco (GB)</label>
-                            <input type="text" value='' ng-model="data.disco" class="form-control" id="name" >
+                            <input type="number" value='' ng-model="data.disco" class="form-control" id="name" >
                         </div>
                          <div class="form-group col-xs-2 col-md-4 col-lg-4">
                             <label for="selectSO" class="control-label">SO</label>
                            
                              <select class="form-control"   ng-model="data.sistema"  >
                                <option value="0"></option>
-                              
-                                  <option ng-repeat="sistema in sistemas" value="{$sistema.pk$}">{$sistema.nome$}</option> 
+                                  <option ng-repeat="sistema in sistemas" value="{$sistema.pk$}">{$sistema.nome$}</option>
                              </select>
                         </div>
                          
@@ -136,27 +137,24 @@
                       <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
                         <thead>
                         <tr>
-                          <th st-sort="firstName">nome</th>
+                          <th st-sort="firstName">Pacote</th>
+                          <th st-sort="lastName">Provedor</th>
+                          <th st-sort="lastName">SO</th>
                           <th st-sort="lastName">CPU</th>
-                          <th st-sort="birthDate">Memória</th>
+                          <th st-sort="birthDate">Memória(GB)</th>
+                          <th st-sort="balance">Disco(GB)</th>
                           <th st-sort="balance">Valor</th>
-                        </tr>
-                        <tr>
-                          <th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="row in pacotes">
                           <td>{$row.nome$}</td>
+                          <td>{$row.provedor.nome$}</td>
+                           <td>{$row.sistemaOperacional.nome$}</td>
                           <td>{$row.quantidadeCpu$}</td>
                           <td>{$row.memoria$}</td>
                           <td>{$row.tamanhoDisco$}</td>
-                          <td>
-                          <button type="button" ng-click="removeItem(row)" class="btn btn-sm btn-danger">
-                            <i class="glyphicon glyphicon-remove-circle">
-                            </i>
-                          </button>
-                          </td>
+                          <td>{$row.valorHora$}</td>
                         </tr>
                         </tbody>
                       </table>
