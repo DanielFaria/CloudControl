@@ -6,7 +6,7 @@
 
 
 
-<html ng-app>
+<html ng-app="cloudControlApp">
 
 
 
@@ -19,6 +19,7 @@
     <meta name="author" content="">
 
     <title>Cloud Control </title>
+    
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
@@ -28,8 +29,8 @@
     <link href="{% static "css/shop-homepage.css" %}" rel="stylesheet">
 
     <script  src="{% static "js/angular.min.js"  %}"></script>
-    <script  src="{% static "js/AppPrincipal.js" %}"></script>
     
+    <script  src="{% static "js/cloudControlApp.js" %}"></script> 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,7 +40,7 @@
     <![endif]-->
 </head>
 
-<body  ng-controller="AppListCtrl" >
+<body  ng-controller="cloudControlCtrl" >
     <span ng-init="getSistemas();getProvedores()"/>
 
     <!-- Navigation -->
@@ -173,15 +174,15 @@
                 <!-- FIM DIV PARA  CADASTRO DE FORNECEDORES-->  
                 <!-- DIV PARA  CADASTRO DE SO-->  
                  <div id="cadastroSO" ng-show="form == 3">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal"  ng-submit="atualizaOuSalvaSistemas()" >
                        <div class="span10">
                             <h1>Cadastro de SO:</h2>
                        </div>
                         
                        <div class="form-group">
-                          <label for="inputEmail" class="control-label col-xs-2">Nome:</label>
+                          <label for="nomeSO" class="control-label col-xs-2">Nome:</label>
                           <div class="col-xs-10">
-                             <input type="text" class="form-control" id="inputEmail" placeholder="Nome">
+                             <input type="text" class="form-control" ng-model="data.nomeSO" id="nomeSO" placeholder="Nome Sistema Operacional">
                           </div>
                        </div>
                        
