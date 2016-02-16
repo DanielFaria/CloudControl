@@ -17,7 +17,7 @@ class PacoteList(generics.ListCreateAPIView):
     def get_queryset(self):
         #TODO - Considerar depois refatorar para DJANGO-FILTERS
 
-        queryset = Pacote.objects.all()
+        queryset = Pacote.objects.all().order_by('nome')
 
         cpu     = self.request.query_params.get('cpu', None)
         memoria = self.request.query_params.get('memoria', None)
@@ -46,7 +46,7 @@ class PacoteDetail(generics.ListCreateAPIView):
 
 
 class ProvedorList(generics.ListCreateAPIView):
-    queryset = Provedor.objects.all()
+    queryset = Provedor.objects.all().order_by('nome')
     serializer_class = ProvedorSerializer 
     
 
@@ -54,10 +54,11 @@ class ProvedorList(generics.ListCreateAPIView):
 class ProvedorDetail(generics.ListCreateAPIView):
     queryset = Provedor.objects.all()
     serializer_class = ProvedorSerializer
-
+    
+   
 
 class SistemaOperacionalList(generics.ListCreateAPIView):
-    queryset = SistemaOperacional.objects.all()
+    queryset = SistemaOperacional.objects.all().order_by('nome')
     serializer_class = SistemaOperacionalSerializer
     
 

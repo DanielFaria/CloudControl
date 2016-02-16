@@ -85,7 +85,7 @@
             <div class="col-md-3">
                 <div class="list-group"  ng-show="!isCheckout" >
                      <a href="#" ng-click="selecionaForm(1);getSistemas()" class="list-group-item">Pesquisar Pacotes</a>
-                    <a href="#"  ng-click="selecionaForm(2)" class="list-group-item"> Cadastrar Provedor</a>
+                    <a href="#"  ng-click="selecionaForm(2);getProvedores()" class="list-group-item"> Cadastrar Provedor</a>
                     <a href="#"  ng-click="selecionaForm(3);" class="list-group-item"> Cadastar Sistema Operacional</a>
                     <a href="#"  ng-click="selecionaForm(4);getProvedores();getSistemas()" class="list-group-item"> Cadastar Pacote</a>
                 </div>
@@ -105,6 +105,16 @@
             </div>
 
             <div class="col-md-9">
+                  <div class="alert alert-success"  ng-show="data.success">
+                    <strong>Cadastro Realizado com Sucesso!</strong> 
+                  </div>
+                  <div class="alert alert-danger" ng-show="data.fail">
+                      <strong> Erro na operação!</strong> 
+                  </div>
+                  
+                  
+
+
                  <!--DIV  PARA PESQUISA DE  PACOTES -->
                  <div id="pesquisaPacotes" ng-show="form == 1">
                     <form >
@@ -162,7 +172,7 @@
                 <!--FIM DIV PARA PESQUISA DE  PACOTES -->
                 <!-- DIV PARA  CADASTRO DE FORNECEDORES-->  
                  <div id="cadastroFornecedores" ng-show="form == 2">
-                     <form class="form-horizontal" ng-submit="atualizaOuSalvaProvedores()">
+                     <form class="form-horizontal" ng-submit="atualizaOuSalvaProvedores();getProvedores()">
                        <div class="span10">
                             <h2>Cadastro de Provedor:</h2>
                        </div>
@@ -170,20 +180,20 @@
                        <div class="form-group">
                           <label for="nomeProv" class="control-label col-xs-2">Nome:</label>
                           <div class="col-xs-10">
-                             <input type="text" class="form-control"  ng-model="data.nomeProvedor" id="nomeProv" placeholder="Nome">
+                             <input type="text" class="form-control" required="true" ng-model="data.nomeProvedor" id="nomeProv" placeholder="Nome">
                           </div>
                        </div>
                        <div class="form-group">
                           <label for="emailProv" class="control-label col-xs-2">Email:</label>
                           <div class="col-xs-10">
-                             <input type="email" class="form-control" id="emailProv" ng-model="data.emailProvedor" placeholder="Email">
+                             <input type="email" class="form-control" required="true" id="emailProv" ng-model="data.emailProvedor" placeholder="Email">
                           </div>
                        </div>
                        
                         <div class="form-group">
                           <label for="siteProv" class="control-label col-xs-2">Site:</label>
                           <div class="col-xs-10">
-                             <input type="text" class="form-control" ng-model="data.siteProvedor" id="siteProv" placeholder="Site">
+                             <input type="text" class="form-control" required="true" ng-model="data.siteProvedor" id="siteProv" placeholder="Site">
                           </div>
                        </div>
                        <div class="form-group">
@@ -192,11 +202,32 @@
                           </div>
                        </div>
                     </form>
+                    <table id="tableProv" st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+                        <thead>
+                        <tr>
+                          <th st-sort="nome">Nome</th>
+                          <th st-sort="lastName">Email</th>
+                          <th st-sort="lastName">Site</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="provedor in provedores">
+                          <td>{$provedor.nome$}</td>
+                          <td>{$provedor.email$}</td>
+                          <td>{$provedor.site$}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+
+
+
+
+
                 </div>
                 <!-- FIM DIV PARA  CADASTRO DE FORNECEDORES-->  
                 <!-- DIV PARA  CADASTRO DE SO-->  
                  <div id="cadastroSO" ng-show="form == 3">
-                    <form class="form-horizontal"  ng-submit="atualizaOuSalvaSistemas()" >
+                    <form class="form-horizontal"  ng-submit="atualizaOuSalvaSistemas();getSistemas()" >
                        <div class="span10">
                             <h1>Cadastro de SO:</h2>
                        </div>
@@ -214,6 +245,24 @@
                           </div>
                        </div>
                     </form>
+                     <table id="tableSistemas" st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+                        <thead>
+                        <tr>
+                          <th st-sort="nome">Nome</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="sistema in sistemas">
+                          <td>{$sistema.nome$}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    
+
+
+
+
+
                 </div>
                 <!-- FIM DIV PARA  CADASTRO DE SO-->  
                  <!-- DIV PARA  CADASTRO DE PACOTES-->  
