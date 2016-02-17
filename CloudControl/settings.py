@@ -130,6 +130,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT= '/static/' 
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "CloudControl/static"),
     # '/var/www/static/',
